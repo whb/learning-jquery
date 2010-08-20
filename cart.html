@@ -43,15 +43,16 @@ ul{
 
 li.added { background-color:orange; }
 
-html, body { margin:0; padding:20px;} 
-li {margin: 10px; }
-#articles {float: left;width: 60%;}	
+html, body { display:table; margin:0; padding:20px;} 
+#main {display:table-cell; width: 60%; padding-right:80px;}	
+#extra {display:table-cell; width: 30%; }
 #cart {
-	float: right; width: 30%; min-height:300px; 
+	min-height:300px; 
   border-style:dashed; border-width:2px; 
 	text-align:center; background-color:#CCFFCC;
 }	
 
+li {margin: 10px; }
 img, a img { 
 	vertical-align: top; 
 	margin:0 1em 1em 0;
@@ -59,33 +60,35 @@ img, a img {
 </style>
 </head>
 <body>
+<div id="main">
+	<ul id="articles">
+		<li id="001">
+			<img src="images/abstract1.jpg" alt="Coffee image" />
 
-<ul id="articles">
-  <li id="001">
-		<img src="images/abstract1.jpg" alt="Coffee image" />
+			<span class="name">Coffee</span> <a href="#">add</a>
+			地区(语言): 台湾(台语,闽南语) 发行时间: 2009年 音乐风格: 民谣 
+	出版者： 陈明章音乐工作有限公司 压缩比率：320K 专辑介绍： 友兮！联合演出 陈明章的
 
-		<span class="name">Coffee</span> <a href="#">add</a>
-		地区(语言): 台湾(台语,闽南语) 发行时间: 2009年 音乐风格: 民谣 
-出版者： 陈明章音乐工作有限公司 压缩比率：320K 专辑介绍： 友兮！联合演出 陈明章的
-
-	</li>
-	<li id="002">
-		<img src="images/abstract2.jpg" alt="Tea image" />
-		<span class="name">Tea</span> <a href="#">add</a>
-		地区(语言): 台湾(台语,闽南语) 发行时间: 2009年 音乐风格: 民谣 
-出版者： 陈明章音乐工作有限公司 压缩比率：320K 专辑介绍： 友兮！联合演出 陈明章的
-	</li>
-	<li id="003">
-		<img src="images/abstract3.jpg" alt="Milk image" />
-		<span class="name">Milk</span> <a href="#">add</a>
-		地区(语言): 台湾(台语,闽南语) 发行时间: 2009年 音乐风格: 民谣 
-出版者： 陈明章音乐工作有限公司 压缩比率：320K 专辑介绍： 友兮！联合演出 陈明章的
-	</li>
-</ul>
-
-<ul id="cart">
-<h3>投票区</h3>
-</ul>
+		</li>
+		<li id="002">
+			<img src="images/abstract2.jpg" alt="Tea image" />
+			<span class="name">Tea</span> <a href="#">add</a>
+			地区(语言): 台湾(台语,闽南语) 发行时间: 2009年 音乐风格: 民谣 
+	出版者： 陈明章音乐工作有限公司 压缩比率：320K 专辑介绍： 友兮！联合演出 陈明章的
+		</li>
+		<li id="003">
+			<img src="images/abstract3.jpg" alt="Milk image" />
+			<span class="name">Milk</span> <a href="#">add</a>
+			地区(语言): 台湾(台语,闽南语) 发行时间: 2009年 音乐风格: 民谣 
+	出版者： 陈明章音乐工作有限公司 压缩比率：320K 专辑介绍： 友兮！联合演出 陈明章的
+		</li>
+	</ul>
+</div>
+<div id="extra">
+	<ul id="cart">
+	<h3>投票区</h3>
+	</ul>
+</div>
  
 </body>
 </html>
