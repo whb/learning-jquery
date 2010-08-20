@@ -14,7 +14,7 @@ function addCart(item) {
 								click: function(event){
 									 event.preventDefault();
 									 $(this).parent().remove();
-									 var origin = $(document.getElementById($(this).attr('href')));
+									 var origin = $("#"+$(this).attr('href'));
 									 origin.removeClass("added");
 									 origin.children("a").show();
 								}
