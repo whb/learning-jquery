@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="jquery.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+function addItem(item) {
+		var imageClone = item.children("img").clone();
+		var nameClone = item.children(".name").clone();
+
+		$('#cart').append("<li>").append(imageClone).append(nameClone).
+				append("<a href='#'>delete</a></li>");
+				
+		$("#cart a").click(function(event){
+			 event.preventDefault();
+			 $(this).parent().remove();
+		});
+}
+
+$(document).ready(function(){
+	$("#articles a").click(function(event){
+		 event.preventDefault();
+		 var item = $(this).parent();
+		 addItem(item);
+		 item.toggleClass("added");
+		 $(this).hide();
+	});
+	
+	
+});
+</script>
+<style type="text/css">
+	li.added { font-weight: bold; }
+	
+</style>
+</head>
+<body>
+<ul id="articles">
+  <li>
+		<img src="images/abstract1.jpg" alt="Coffee image" />
+		<span class="name">Coffee</span> <a href="#">add</a><br />
+		地区(语言): 香港(粤语) 上映日期: 2010年 <br />
+		导演: 林超贤<br />
+		演员: 张家辉, 谢霆锋, 苗圃, 陆毅, 桂纶镁, 廖启智 (全文) <br />
+		
+	</li>
+	<li>
+		<img src="images/abstract2.jpg" alt="Tea image" />
+		<span class="name">Tea</span> <a href="#">add</a><br />
+		地区(语言): 香港(粤语) 上映日期: 2010年 <br />
+		导演: 林超贤<br />
+		演员: 张家辉, 谢霆锋, 苗圃, 陆毅, 桂纶镁, 廖启智 (全文) <br />
+		
+	</li>
+	<li>
+		<img src="images/abstract3.jpg" alt="Milk image" />
+		<span class="name">Milk</span> <a href="#">add</a><br />
+		地区(语言): 香港(粤语) 上映日期: 2010年 <br />
+		导演: 林超贤<br />
+		演员: 张家辉, 谢霆锋, 苗圃, 陆毅, 桂纶镁, 廖启智 (全文) <br />
+		
+	</li>
+</ul>
+<a href="#">add</a>
+<ul id="cart">
+
+</ul>
+ 
+</body>
+</html>
