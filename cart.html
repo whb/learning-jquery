@@ -44,16 +44,17 @@ ul{
 li.added { background-color:orange; }
 
 html, body { display:table; margin:0; padding:20px;} 
-#main {display:table-cell; width: 60%; padding-right:80px;}	
-#extra {display:table-cell; width: 30%; }
+#main {float:left; width: 60%; padding-right:80px;}	
+#extra {float:right; width: 30%; }
 #cart {
 	min-height:300px; 
   border-style:dashed; border-width:2px; 
 	text-align:center; background-color:#CCFFCC;
 }	
 
-li {margin: 10px; }
+li {margin: 10px; height: 150px;}
 img, a img { 
+	float: left;
 	vertical-align: top; 
 	margin:0 1em 1em 0;
 }
