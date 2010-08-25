@@ -1,0 +1,198 @@
+<html><head><!--%@ page language="java" errorPage="/error.jsp" pageEncoding="UTF-8" contentType="text/html; charset=utf-8" %-->
+
+
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>投票</title>
+<link rel="stylesheet" href="workvote_files/pagination.css">
+<script type="text/javascript" src="workvote_files/jquery.js"></script>
+<script type="text/javascript" src="workvote_files/jquery_002.js"></script>
+
+<script type="text/javascript">
+	function handlePaginationClick(page_index, jq){
+        return true;
+    }
+
+    function initPagination() {
+        $("#pagination").pagination(7, {
+            callback: handlePaginationClick,
+            items_per_page: 3,
+            prev_text:"上一页",
+			next_text:"下一页",
+			link_to:"workvote?pageNo=__id__",
+			current_page:0
+        });
+    }
+	
+	function addVoteCart(item) {
+		var imageClone = item.children("img").clone();
+		var nameClone = item.children(".name").clone();
+		var link = $("<a/>", {
+			text: 'delete',
+			href: item.attr('id'),
+			click: function(event){
+				event.preventDefault();
+				$(this).parent().remove();
+				var origin = $("#"+$(this).attr('href'));
+				origin.removeClass("added");
+				origin.children("a").show();
+				commiteData("templateDeleteVotes", $(this).attr('href'));
+		}
+		});
+		var voteCartLi = $("<li/>").append(imageClone).append(nameClone).append(link);
+		$('#voteCart').append(voteCartLi);
+		
+	}
+	
+	function commiteData(method, dt){ 
+		$.ajax({
+			url: "workvote?method="+method,
+			data: {'workId': dt},	
+			type: "POST"
+		});	
+	}
+	
+	function registerAddAction() {
+		$("#articles .addLink").click(function(event){
+			event.preventDefault();
+			var item = $(this).parent();
+			addVoteCart(item);
+			item.addClass("added");
+			$(this).hide();
+			commiteData("templateSaveVotes", item.attr('id'));
+		});
+	}
+    
+	function registerExistDeleteAction() {
+		$("#voteCart a").click(function(event){
+			event.preventDefault();
+			$(this).parent().remove();
+			var origin = $("#"+$(this).attr('href'));
+			origin.removeClass("added");
+			origin.children("a").show();
+			commiteData("templateDeleteVotes", $(this).attr('href'));
+		});
+	}
+	
+	function commitVoteArticalAction() {
+		$("#voteButton").click(function(event){
+			$.post("workvote?method=vote", function(data) {
+				$("#voteMsg").html(data);
+			});
+		});		
+	}
+	
+	
+    $(document).ready(function(){
+        initPagination();
+		registerAddAction();
+		registerExistDeleteAction();
+		commitVoteArticalAction();
+		$(".btnDiscuss").click(function(event){
+			var item = $(this).parent();
+			commiteData("goToDiscuss", $(item).attr("id"));
+		});
+    });
+</script>
+
+<style type="text/css">
+ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li.added { background-color:orange; }
+
+html, body {margin:0; padding:20px;} 
+#main {float:left; width: 60%; padding-right:10px;}
+#toVote {
+  float:right; width: 30%; 
+	min-height:300px;
+	border-style:dashed; border-width:2px;
+	text-align:center; background-color:#CCFFCC;
+}
+
+li {margin: 10px; height: 150px;}
+img, a img {
+float: left;
+vertical-align: top;
+margin:0 1em 1em 0;
+}
+
+</style>
+
+
+</head><body id="worksVote">
+
+<div id="main">
+	<ul id="articles">
+		
+		<li id="1">
+			<img src="workvote_files/test1.jpg" alt="test1.jpg">
+			<span class="name">作品名称：测试数据title1</span><br>
+			作者：测试author1<br>
+			发布日期：2010-08-12<br>
+			投票数：18
+			
+			<a class="addLink" href="#">add</a>
+			
+			<a href="http://localhost:8080/webvote/workvote?method=goToDiscuss&amp;workId=1">评论</a>
+			
+		</li>
+		
+		<li id="6">
+			<img src="workvote_files/test6.jpg" alt="test6.jpg">
+			<span class="name">作品名称：测试数据title6</span><br>
+			作者：测试author6<br>
+			发布日期：2010-08-16<br>
+			投票数：14
+			
+			<a class="addLink" href="#">add</a>
+			
+			<a href="http://localhost:8080/webvote/workvote?method=goToDiscuss&amp;workId=6">评论</a>
+			
+		</li>
+		
+		<li id="8" class="added">
+			<img src="workvote_files/test8.jpg" alt="test8.jpg">
+			<span class="name">作品名称：测试数据title8</span><br>
+			作者：测试author8<br>
+			发布日期：2010-08-16<br>
+			投票数：11
+			
+			<a style="display: none;" class="addLink" href="#">add</a>
+			
+			<a href="http://localhost:8080/webvote/workvote?method=goToDiscuss&amp;workId=8">评论</a>
+			
+		</li>
+			
+	</ul>
+	<div id="pagination"><div class="pagination"><span class="current prev">上一页</span><span class="current">1</span><a href="http://localhost:8080/webvote/workvote?pageNo=1">2</a><a href="http://localhost:8080/webvote/workvote?pageNo=2">3</a><a class="next" href="http://localhost:8080/webvote/workvote?pageNo=1">下一页</a></div></div>
+</div>
+
+
+<div id="toVote">
+	<h3>投票区</h3>
+	<div id="voteMsg"></div>
+	<ul id="voteCart">
+	
+		
+			<li><img src="workvote_files/test7.jpg" alt="test7.jpg"><span class="name">作品名称：测试数据title7</span><a href="http://localhost:8080/webvote/7">delete</a>
+		
+			</li><li><img src="workvote_files/test8.jpg" alt="test8.jpg"><span class="name">作品名称：测试数据title8</span><a href="http://localhost:8080/webvote/8">delete</a>
+		
+	
+	</li></ul>	
+	<div id="voteCommit">
+	<input id="voteButton" value="投票" type="button">
+	</div>
+</div>
+
+
+
+</body></html>
