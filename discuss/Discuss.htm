@@ -1,0 +1,117 @@
+<html><head><!--%@ page language="java" errorPage="/error.jsp" pageEncoding="UTF-8" contentType="text/html; charset=utf-8" %-->
+
+
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>评论</title>
+<script type="text/javascript" src="Discuss_files/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+		$("#btnDiscuss").click(function(event){
+			$.post("workvote?method=discuss",
+				{discussCommond: $("#discussCommontArea").attr("value"),workId:4},
+				function(data) {
+					$("#discussMsg").html(data);
+					
+					var comment = $("#discussCommontArea").attr("value");
+					$("#discussCommontArea").attr("value", "");
+					var d=new Date();
+					var localTime=d.getFullYear()+"-"+(d.getMonth() + 1)+"-"+d.getDate();
+					var commenTime = "评论时间："+localTime+"<br />评论内容："+comment;
+					var discussLine= $("<li/>").append(commenTime);
+					$("#discussesUl").append(discussLine);
+				}
+			)
+		});
+	});
+</script>
+<style type="text/css">
+ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+html, body {margin:0; padding:20px; font-size:0.95em;} 
+
+
+li {margin-top: 5px; padding:5px; background-color:#ffffdd;}
+
+#work {height: 150px;}
+#work img, a img {
+	float: left;
+	vertical-align: top;
+	margin:0 1em 1em 0;
+}
+</style>
+</head><body id="discussWork">
+
+<div id="workArea">
+	<div id="work">
+
+		<img src="Discuss_files/test4.jpg" alt="test4.jpg">
+		<p>
+			作品名称：<span class="name">测试数据title1</span><br>
+			作者：测试author1<br>
+			发布日期：2010-08-12<br>
+			投票数：18
+  	</p>
+
+	</div>
+</div>
+
+<div id="discussArea">
+	<ul id="discussesUl">
+	<textarea rows="5" cols="80" id="discussCommontArea"></textarea><br>
+	<input id="btnDiscuss" value="评论" type="button"><div id="discussMsg"></div><br>
+	
+	<li class="line">
+	评论时间：2010-08-20 <br>评论内容：测试评论测试评论4
+	</li>
+	
+	<li class="line">
+	评论时间：2010-08-20 <br>评论内容：测试评论测试评论4
+	</li>
+	
+	<li class="line">
+	评论时间：2010-08-20 <br>评论内容：测试评论测试评论4
+	</li>
+	
+	<li class="line">
+	评论时间：2010-08-20 <br>评论内容：测试评论测试评论4
+	</li>
+	
+	<li class="line">
+	评论时间：2010-08-25 <br>评论内容：discussCommond测试discuss
+	</li>
+	
+	<li class="line">
+	评论时间：2010-08-25 <br>评论内容：我要评论 discussCommond 我要评论 discussCommond 我要评论 
+discussCommond 我要评论 discussCommond 我要评论 discussCommond 我要评论 
+discussCommond 我要评论 discussCommond
+	</li>
+	
+	<li class="line">
+	评论时间：2010-08-25 <br>评论内容：我要评论 discussCommond 我要评论 discussCommond
+	</li>
+	
+	<li class="line">
+	评论时间：2010-08-25 <br>评论内容：我要评论 discussCommond 我要评论 discussCommond
+	</li>
+	
+	<li class="line">
+	评论时间：2010-08-25 <br>评论内容：我要评论 discussCommond 我要评论 discussCommond
+	</li>
+	
+	<li class="line">
+	评论时间：2010-08-25 <br>评论内容：下午评论
+	</li>
+	
+	</ul>
+</div>
+
+</body></html>
