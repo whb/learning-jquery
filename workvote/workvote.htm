@@ -30,20 +30,21 @@
 	
 	function addVoteCart(item) {
 		var imageClone = item.children("img").clone();
-		var nameClone = item.children(".name").clone();
+		var nameClone = item.find(".name").clone();
 		var link = $("<a/>", {
 			text: 'delete',
 			href: item.attr('id'),
 			click: function(event){
 				event.preventDefault();
-				$(this).parent().remove();
+				$(this).parents('li').remove();
 				var origin = $("#"+$(this).attr('href'));
 				origin.removeClass("added");
-				origin.children("a").show();
+				origin.find(".addLink").show();
 				commiteData("templateDeleteVotes", $(this).attr('href'));
 		}
 		});
-		var voteCartLi = $("<li/>").append(imageClone).append(nameClone).append(link);
+		var p = $("<p/>").append(nameClone).append(link);
+		var voteCartLi = $("<li/>").append(imageClone).append(p);
 		$('#voteCart').append(voteCartLi);
 		
 	}
@@ -59,7 +60,7 @@
 	function registerAddAction() {
 		$("#articles .addLink").click(function(event){
 			event.preventDefault();
-			var item = $(this).parent();
+			var item = $(this).parents('li');
 			addVoteCart(item);
 			item.addClass("added");
 			$(this).hide();
@@ -73,7 +74,7 @@
 			$(this).parent().remove();
 			var origin = $("#"+$(this).attr('href'));
 			origin.removeClass("added");
-			origin.children("a").show();
+			origin.find(".addLink").show();
 			commiteData("templateDeleteVotes", $(this).attr('href'));
 		});
 	}
@@ -108,7 +109,7 @@ ul{
 
 li.added { background-color:orange; }
 
-html, body {margin:0; padding:20px;} 
+html, body {margin:0; padding:20px; font-size:0.95em;} 
 #main {float:left; width: 60%; padding-right:10px;}
 #toVote {
   float:right; width: 30%; 
@@ -118,12 +119,15 @@ html, body {margin:0; padding:20px;}
 }
 
 li {margin: 10px; height: 150px;}
-img, a img {
+
+
+#articles img, a img {
 float: left;
 vertical-align: top;
 margin:0 1em 1em 0;
 }
 
+#articles .link {float:right;}
 </style>
 
 
@@ -133,43 +137,52 @@ margin:0 1em 1em 0;
 	<ul id="articles">
 		
 		<li id="1">
+			<div class="link">
+				<a class="addLink" href="#">add</a>
+				<a href="http://localhost:8080/webvote/workvote?method=goToDiscuss&amp;workId=1">评论</a>
+			</div>
 			<img src="workvote_files/test1.jpg" alt="test1.jpg">
-			<span class="name">作品名称：测试数据title1</span><br>
+			<p>
+			作品名称：<span class="name">测试数据title1</span><br>
 			作者：测试author1<br>
 			发布日期：2010-08-12<br>
 			投票数：18
-			
-			<a class="addLink" href="#">add</a>
-			
-			<a href="http://localhost:8080/webvote/workvote?method=goToDiscuss&amp;workId=1">评论</a>
-			
+			</p>
+		  
 		</li>
 		
 		<li id="6">
+			<div class="link">
+				<a class="addLink" href="#">add</a>
+				<a href="http://localhost:8080/webvote/workvote?method=goToDiscuss&amp;workId=6">评论</a>
+			</div>
 			<img src="workvote_files/test6.jpg" alt="test6.jpg">
-			<span class="name">作品名称：测试数据title6</span><br>
+			<p>
+			作品名称：<span class="name">测试数据title6</span><br>
 			作者：测试author6<br>
-			发布日期：2010-08-16<br>
-			投票数：14
-			
-			<a class="addLink" href="#">add</a>
-			
-			<a href="http://localhost:8080/webvote/workvote?method=goToDiscuss&amp;workId=6">评论</a>
+			发布日期：2010-08-12<br>
+			投票数：18
+			</p>
 			
 		</li>
 		
 		<li id="8" class="added">
+			<div class="link">
+				<a style="display: none;" class="addLink" href="#">add</a>
+				<a href="http://localhost:8080/webvote/workvote?method=goToDiscuss&amp;workId=8">评论</a>
+			</div>
 			<img src="workvote_files/test8.jpg" alt="test8.jpg">
-			<span class="name">作品名称：测试数据title8</span><br>
+			<p>
+			作品名称：<span class="name">测试数据title8</span><br>
 			作者：测试author8<br>
-			发布日期：2010-08-16<br>
+			发布日期：2010-08-12<br>
 			投票数：11
-			
-			<a style="display: none;" class="addLink" href="#">add</a>
-			
-			<a href="http://localhost:8080/webvote/workvote?method=goToDiscuss&amp;workId=8">评论</a>
+			</p>
 			
 		</li>
+		
+
+
 			
 	</ul>
 	<div id="pagination"><div class="pagination"><span class="current prev">上一页</span><span class="current">1</span><a href="http://localhost:8080/webvote/workvote?pageNo=1">2</a><a href="http://localhost:8080/webvote/workvote?pageNo=2">3</a><a class="next" href="http://localhost:8080/webvote/workvote?pageNo=1">下一页</a></div></div>
@@ -182,9 +195,10 @@ margin:0 1em 1em 0;
 	<ul id="voteCart">
 	
 		
-			<li><img src="workvote_files/test7.jpg" alt="test7.jpg"><span class="name">作品名称：测试数据title7</span><a href="http://localhost:8080/webvote/7">delete</a>
+			<li><img src="workvote_files/test7.jpg" alt="test7.jpg">
+			<p><span class="name">测试数据title7</span><a href="http://localhost:8080/webvote/7">delete</a></p>
 		
-			</li><li><img src="workvote_files/test8.jpg" alt="test8.jpg"><span class="name">作品名称：测试数据title8</span><a href="http://localhost:8080/webvote/8">delete</a>
+			</li><li><img src="workvote_files/test8.jpg" alt="test8.jpg"><span class="name">测试数据title8</span><a href="8">delete</a>
 		
 	
 	</li></ul>	
